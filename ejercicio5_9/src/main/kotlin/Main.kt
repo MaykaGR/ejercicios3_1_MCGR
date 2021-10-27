@@ -55,8 +55,6 @@ class Persona(val DNI: String) {
 
 }
 
-//fun <T> List(size: Int): List<T> { }
-
 
 fun main() {
     var pago : Double = 0.0
