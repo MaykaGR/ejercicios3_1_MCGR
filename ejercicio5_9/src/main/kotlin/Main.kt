@@ -11,22 +11,21 @@ con la segunda. Imprimir por pantalla si la persona es morosa.
 Posteriormente hacer una transferencia de una cuenta a otra
 (de forma que todos los saldos sean positivos) y mostrar por pantalla el estado de la persona.*/
 
-class Cuenta(var numCuenta: String, var saldo: Double) {
-    fun recibirAbono(saldo:Double): Double {
-        println ("Introduce cantidad:")
-        var incremento=readLine()
-        var nuevosaldo=saldo+incremento
-        return nuevosaldo
+class Cuenta(val numCuenta: String, var saldo: Double = 0.0) {
+
+    fun recibirAbono(abono: Double): Double {
+        this.saldo += abono
+        return saldo
     }
-    fun realizarPago(saldo:Double): Double{
-        println("Cantidad del pago:")
-        var decremento=readLine()
-        var nuevosaldo=saldo-decremento
-        return nuevosaldo
+
+    fun realizarPago(pago: Double): Double {
+        saldo -= pago
+        return saldo
     }
 }
 
-class Persona(val DNI: String, var cuentas: Array<Cuenta>) {
+class Persona(val DNI: String) {
+    private var numCuentas = 0
     var cuentas: Array<Cuenta?> = arrayOfNulls(3)
     //var cuentas: throw IndexOutOfBoundsException("Límite alcanzado")
 
@@ -34,15 +33,25 @@ class Persona(val DNI: String, var cuentas: Array<Cuenta>) {
         val randomValues = List(5){ Random.nextInt(0, 100) }
         num=randomValues
         cuentas.add(num)
-        return cuentas }*/
-    fun addCuenta(numCuenta:String): Array<Cuenta>{
-        cuentas.set=numCuenta
-        return cuentas
+        return Boolean, indicando True si se añade correctamente, False en caso contrario }*/
+    fun addCuenta(cuenta: Cuenta): Boolean {
+        var resultado: Boolean
+        resultado = false
+        if (numCuentas < 3) {
+            cuentas[numCuentas] = cuenta
+            numCuentas++
+            resultado = true
+        }
+        return resultado
     }
-    fun morosidad (cuentas:Array<Cuenta>, saldo:Double ):Unit{
-        if(saldo<0){println("moros@")}
+
+    fun morosidad(cuentas: Array<Cuenta>, saldo: Double): Boolean {
+        if (saldo < 0) {
+            return true
+        }
+        else return false
     }
-    //var cuentas:ArrayOfNulls(3)
+
 
 }
 
@@ -50,5 +59,26 @@ class Persona(val DNI: String, var cuentas: Array<Cuenta>) {
 
 
 fun main() {
-
+    var pago : Double = 0.0
+    var abono : Double = 0.0
+    var c1 = Cuenta("cta1")
+    var p1 = Persona("123")
+    if (p1.addCuenta(c1))
+        println("Cuenta ${c1.numCuenta} añadida correctamente")
+    else
+        println("Error añadiendo la cuenta ${c1.numCuenta}")
+    var c2 = Cuenta("cta2", 700.0)
+    if (p1.addCuenta(c2))
+        println("Cuenta ${c2.numCuenta} añadida correctamente")
+    else
+        println("Error añadiendo la cuenta ${c2.numCuenta}")
+    println("Realizar abono:")
+    abono = (readLine() ?: "0.0").toDouble()
+    c1.recibirAbono(abono)
+    println(c1.saldo)
+    println ("Realizar pago:")
+    pago = (readLine() ?: "0.0").toDouble()
+    c2.realizarPago(pago)
+    println(c2.saldo)
+    //p1.morosidad(cuentas,saldo) if true println ("moros@")
 }
