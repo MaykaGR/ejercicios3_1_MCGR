@@ -10,10 +10,7 @@
   añadir un libro y mostrar el contenido final.*/
 
 class Libro (var titulo: String, var autor: String, var numPags: Int, var calificacion: Int){
-    var titulo = ""
-    var autor = ""
-    var numPags = 0
-    var calificacion = 0
+
 
 }
 class ConjuntoLibros (var conjunto: Array<Libro?>(10)){
