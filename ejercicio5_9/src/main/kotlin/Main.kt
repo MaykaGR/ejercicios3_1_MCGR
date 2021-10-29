@@ -28,7 +28,7 @@ class Persona(val DNI: String) {
     private var numCuentas = 0
     var cuentas: Array<Cuenta?> = arrayOfNulls(3)
     //var cuentas: throw IndexOutOfBoundsException("Límite alcanzado")
-
+    //Abajo intenté crear una fucnión que creara una cuenta y le diera un número aleatorio
     /*fun addCuenta (num:Int, cuentas:MutableList<Cuenta>):MutableList<Cuenta> {
         val randomValues = List(5){ Random.nextInt(0, 100) }
         num=randomValues
@@ -45,11 +45,13 @@ class Persona(val DNI: String) {
         return resultado
     }
 
-    fun morosidad(cuentas: Array<Cuenta>, saldo: Double): Boolean {
-        if (saldo < 0) {
-            return true
+    fun morosidad(saldo: Double):Boolean {
+        var saldos = cuentas
+        //No sé cómo hacer para que se pueda compilar este método al estar usando una opción de nulo
+        cuentas.forEach{cuenta->
+            return cuenta?.saldo < 0
         }
-        else return false
+        return true
     }
 
 
@@ -71,6 +73,9 @@ fun main() {
     else
         println("Error añadiendo la cuenta ${c2.numCuenta}")
     println("Realizar abono:")
+    //Creo que así sólo cambio el saldo en cada variable creada de cuenta pero no en las cuentas dentro del
+    //array cuentas, pero no he conseguido hacer funcionar el método .filter para acceder a cada cuenta dentro
+    //del array
     abono = (readLine() ?: "0.0").toDouble()
     c1.recibirAbono(abono)
     println(c1.saldo)
@@ -78,5 +83,12 @@ fun main() {
     pago = (readLine() ?: "0.0").toDouble()
     c2.realizarPago(pago)
     println(c2.saldo)
+    /*val c = p1.cuentas.filter{numCuenta->"ca1"}
+    c.recibirAbono(abono)*/
+    //Este método lo escribió usted en la resolución en clase pero tampoco me funciona
+    for (c in p1.cuentas)
+        if (c.numCuenta?="cta1") c.recibirAbono(1000)
     //p1.morosidad(cuentas,saldo) if true println ("moros@")
+    //Esto no consigo hacerlo funcionar
+    p1.cuentas.forEach{println(p1.morosidad(saldo))}
 }
