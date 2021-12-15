@@ -48,9 +48,9 @@ class Persona(val DNI: String) {
     fun morosidad(saldo: Double):Boolean {
         var saldos = cuentas
         //No sé cómo hacer para que se pueda compilar este método al estar usando una opción de nulo
-        cuentas.forEach{cuenta->
+        /*cuentas.forEach{cuenta->
             return cuenta?.saldo < 0
-        }
+        }*/
         return true
     }
 
@@ -86,9 +86,9 @@ fun main() {
     /*val c = p1.cuentas.filter{numCuenta->"ca1"}
     c.recibirAbono(abono)*/
     //Este método lo escribió usted en la resolución en clase pero tampoco me funciona
-    for (c in p1.cuentas)
-        if (c.numCuenta?="cta1") c.recibirAbono(1000)
+    /*for (c in p1.cuentas)
+        if (c.numCuenta?="cta1") c.recibirAbono(1000)*/
     //p1.morosidad(cuentas,saldo) if true println ("moros@")
     //Esto no consigo hacerlo funcionar
-    p1.cuentas.forEach{println(p1.morosidad(saldo))}
+    //p1.cuentas.forEach{println(p1.morosidad(saldo))}
 }
